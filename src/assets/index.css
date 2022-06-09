@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,7 +10,7 @@
         --background: hsl(223, 31%, 20%);                   /* Keypad background and toggle background */
         --background-dark: hsl(224, 36%, 15%);              /* Display background */
 
-        --text: hsl(0, 0, 100%);                            /* Text in top of application */
+        --text: hsl(0, 0%, 100%);                            /* Text in top of application */
 
         --key-text-light: hsl(0, 0, 100%);                  /* DEL and RESET color */
         --key-text: hsl(221, 14%, 31%);                     /* Key text color */

@@ -19,6 +19,9 @@ module.exports = {
 			"key-bg-tertiary": "var(--key-bg-tertiary)",
 			"key-bg-tertiary-dark": "var(--key-bg-tertiary-dark)",
         },
+		fontFamily: {
+			"serif": "League Spartan",
+		},
         extend: {},
     },
     plugins: [],
