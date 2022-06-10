@@ -1,5 +1,5 @@
 <script setup>
-import {ref, computed} from 'vue';
+import {ref, computed, nextTick} from 'vue';
 
 import VKeypad from './components/VKeypad.vue';
 import VDisplay from './components/VDisplay.vue';
@@ -7,7 +7,7 @@ import VToggle from './components/VToggle.vue';
 
 const OPERANDS = ['+', '-', 'x', '/'];
 
-const theme = ref(1);
+const theme = ref(0);
 const display = ref('');
 
 const themeClass = computed(() => {
@@ -33,7 +33,7 @@ function onKeyEnter(key) {
             <VKeypad class="" @keyEnter="onKeyEnter"></VKeypad>
         </div>
 
-        <div class="absolute bottom-4 w-100 mx-auto">
+        <div class="absolute bottom-4 w-100 text-xs mx-auto">
             Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
             Coded by <a href="#">Sofus</a>.
         </div>

@@ -13,7 +13,7 @@ module.exports = {
 			"key-text": "var(--key-text)",
 			"key-text-dark": "var(--key-text-dar)",
 			"key-bg-primary": "var(--key-bg-primary)",
-			"key-bg-primary-dark": "var(--key-bg-primary-dar)",
+			"key-bg-primary-dark": "var(--key-bg-primary-dark)",
 			"key-bg-secondary": "var(--key-bg-secondary)",
 			"key-bg-secondary-dark": "var(--key-bg-secondary-dark)",
 			"key-bg-tertiary": "var(--key-bg-tertiary)",
