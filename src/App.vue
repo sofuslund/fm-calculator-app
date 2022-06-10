@@ -8,7 +8,7 @@ import VToggle from './components/VToggle.vue';
 const OPERANDS = ['+', '-', 'x', '/'];
 
 const theme = ref(0);
-const display = ref('');
+const display = ref('0');
 
 const themeClass = computed(() => {
     return {'theme-light': theme.value == 1, 'theme-neon': theme.value == 2};
@@ -22,14 +22,12 @@ function onKeyEnter(key) {
 </script>
 
 <template>
-    <div :class="themeClass" class="font-serif h-screen bg-background-light flex wrap justify-center items-center">
-        <div class="w-full max-w-md p-5">
-            <div class="">
-                <h1 class="text-text text-3xl float-left font-bold">calc</h1>
-                <VToggle v-model="theme" :options="[1, 2, 3]" caption="THEME" class="float-right"></VToggle>
-            </div>
+    <div :class="themeClass" class="font-serif h-screen bg-background-light flex justify-center items-center">
+        <div class="w-full relative max-w-md p-5">
+            <h1 class="text-text text-3xl font-bold">calc</h1>
+            <VToggle class="absolute top-8 right-5" v-model="theme" :options="[1, 2, 3]" caption="THEME"></VToggle>
 
-            <VDisplay class="" v-model="display"></VDisplay>
+            <VDisplay class="my-8 w-full" :value="display"></VDisplay>
             <VKeypad class="" @keyEnter="onKeyEnter"></VKeypad>
         </div>
 
