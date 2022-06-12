@@ -1,6 +1,4 @@
 <script setup>
-import { computed } from "vue"
-
 const props = defineProps({
     caption: {type: String, required: true},
     options: {type: Array, required: true},
