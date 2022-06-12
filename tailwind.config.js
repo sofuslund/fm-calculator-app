@@ -11,7 +11,7 @@ module.exports = {
 			"text": "var(--text)",
 			"key-text-light": "var(--key-text-light)",
 			"key-text": "var(--key-text)",
-			"key-text-dark": "var(--key-text-dar)",
+			"key-text-dark": "var(--key-text-dark)",
 			"key-bg-primary": "var(--key-bg-primary)",
 			"key-bg-primary-dark": "var(--key-bg-primary-dark)",
 			"key-bg-secondary": "var(--key-bg-secondary)",

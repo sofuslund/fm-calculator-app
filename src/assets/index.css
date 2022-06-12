@@ -12,9 +12,9 @@
 
         --text: hsl(0, 0%, 100%);                            /* Text in top of application */
 
-        --key-text-light: hsl(0, 0, 100%);                  /* DEL and RESET color */
+        --key-text-light: hsl(0, 0%, 100%);                  /* DEL and RESET color */
         --key-text: hsl(221, 14%, 31%);                     /* Key text color */
-        --key-text-dark: hsl(0, 0, 100%);                   /* = color */
+        --key-text-dark: hsl(0, 0%, 100%);                   /* = color */
 
         --key-bg-primary: hsl(30, 25%, 89%);
         --key-bg-primary-dark: hsl(28, 16%, 65%);
@@ -30,9 +30,9 @@
 
         --text: hsl(60, 10%, 19%);
 
-        --key-text-light: hsl(0, 0, 100%);
+        --key-text-light: hsl(0, 0%, 100%);
         --key-text: hsl(60, 10%, 19%);
-        --key-text-dark: hsl(0, 0, 100%);
+        --key-text-dark: hsl(0, 0%, 100%);
         --key-bg-primary: hsl(225, 21%, 49%);
 
         --key-bg-primary: hsl(45, 7%, 89%);
@@ -49,7 +49,7 @@
 
         --text: hsl(52, 100%, 62%);
 
-        --key-text-light: hsl(0, 0, 100%);
+        --key-text-light: hsl(0, 0%, 100%);
         --key-text: hsl(52, 100%, 62%);
         --key-text-dark: hsl(198, 20%, 13%);
 
