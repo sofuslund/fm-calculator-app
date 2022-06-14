@@ -20,7 +20,7 @@ function keyStyle(key) {
 </script>
 
 <template>
-<div class="w-full h-[26rem] lg:h-[23.5rem] bg-background grid grid-cols-4 grid-rows-5 gap-3.5 lg:gap-[1.1rem] p-6 rounded-md">
+<div class="w-full h-[26rem] lg:h-[23.5rem] bg-background grid grid-cols-4 grid-rows-5 gap-3.5 lg:gap-[1.1rem] p-6 rounded-xl">
     <button class="rounded-md w-full h-full" @click="$emit('keyEnter', keyText(key))" :class="keyStyle(key)" v-for="key in keys">
     <!-- translate to compensate for emptu space in font making it difficult to center text -->
         <h1 class="translate-y-[.02em]">{{keyText(key)}}</h1>
