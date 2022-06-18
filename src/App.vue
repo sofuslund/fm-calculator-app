@@ -170,7 +170,7 @@ function onCalcKeyEnter(key) {
 </script>
 
 <template>
-    <div :class="themeClass" class="font-serif w-screen h-screen bg-background-light flex justify-center items-center">
+    <div :class="themeClass" class="font-serif w-screen h-full bg-background-light flex justify-center items-center">
         <div class="w-full relative max-w-[29rem] lg:max-w-[38rem] p-5">
             <h1 class="text-text text-3xl font-bold">calc</h1>  
             <VToggle class="absolute top-8 right-5" v-model="theme" :options="[1, 2, 3]" caption="THEME"></VToggle>
