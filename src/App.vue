@@ -131,6 +131,9 @@ function onCalcKeyEnter(key) {
     } else if (key === 'RESET') {
         infix = [];
         display.value = '0';
+        for(let keyHighlighted in keysHighlight) {
+            keysHighlight[keyHighlighted] = false;
+        }
     } else if (OPERATOR_REGEX.test(key)) {
         // Toggle highlight of that operator key
         for(const keyHighlighted in keysHighlight) {
@@ -167,12 +170,12 @@ function onCalcKeyEnter(key) {
 
 <template>
     <div :class="themeClass" class="font-serif w-screen h-screen bg-background-light flex justify-center items-center">
-        <div class="w-full relative max-w-[29rem] p-5">
-            <h1 class="text-text text-3xl font-bold">calc</h1>
+        <div class="w-full relative max-w-[29rem] lg:max-w-[38rem] p-5">
+            <h1 class="text-text text-3xl font-bold">calc</h1>  
             <VToggle class="absolute top-8 right-5" v-model="theme" :options="[1, 2, 3]" caption="THEME"></VToggle>
 
-            <VDisplay class="my-8 lg:my-4 w-full h-20" :value="displayFormatted"></VDisplay>
-            <VKeypad :keys-highlight="keysHighlight" @keyEnter="onCalcKeyEnter"></VKeypad>
+            <VDisplay class="my-8 lg:my-[1.2rem] w-full h-20 lg:h-28" :value="displayFormatted"></VDisplay>
+            <VKeypad class="h-[26rem] lg:h-[30rem]" :keys-highlight="keysHighlight" @keyEnter="onCalcKeyEnter"></VKeypad>
         </div>
 
         <div class="absolute bottom-4 w-100 text-xs mx-auto">
