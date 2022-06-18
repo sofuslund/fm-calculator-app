@@ -31,8 +31,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [solution](https://www.frontendmentor.io/solutions/vuejs-calculator-app-using-infix-to-postfix-conversion-03o5q247Q4)
+- Live Site URL: [https://fm06-calculator-app.netlify.app/](https://fm06-calculator-app.netlify.app/)
 
 ## My process
 
