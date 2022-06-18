@@ -28,13 +28,14 @@ let infix = []; // Whole calculation
 const displayFormatted = computed(() => {
     // Check if there should be any commas in long numbers
     // (?!\.)
-    return display.value.replaceAll(/(?<!\.|\d)\d+/g, (match, ...args) => {
-        let commaIdx = match.length % 3 === 0 ? 3 : match.length % 3
-        let s = match.substring(0, commaIdx);
-        for(let i = commaIdx; i <= match.length - 3; i += 3) {
+    return display.value.replaceAll(/(\d+)(\.?\d*)/g, (match, g1, g2, ...args) => {
+        let commaIdx = g1.length % 3 === 0 ? 3 : g1.length % 3
+        let s = g1.substring(0, commaIdx);
+        for(let i = commaIdx; i <= g1.length - 3; i += 3) {
             s += ',';
-            s += match.substring(i, i + 3);
+            s += g1.substring(i, i + 3);
         }
+        s += g2;
         return s || '0';
     });
 });
