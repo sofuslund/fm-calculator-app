@@ -4,16 +4,18 @@ import {ref, computed, onMounted, onBeforeUnmount, reactive} from 'vue';
 import VKeypad from './components/VKeypad.vue';
 import VDisplay from './components/VDisplay.vue';
 import VToggle from './components/VToggle.vue';
-import { processExpression } from '@vue/compiler-core';
 
-const OPERATORS = '+-x/';
-const NUMBERS = '0123456789';
+const OPERATORS = ['+', '-', 'x', '/'];
+const VALID_KEY_REGEX = /^[+\-x/\d\.]$/;
+const NUM_REGEX = /^-?[\d\.]+$/;
+const OPERATOR_REGEX = /^[+\-x/]$/;
 const EVENT_TO_CALC_KEY = {
     'Backspace': 'DEL',
     'Escape': 'RESET',
     'Delete': 'RESET',
     'Enter': '=',
     '*': 'x',
+    'X': 'x',
 }
 
 const theme = ref(0);
@@ -61,11 +63,11 @@ function result() {
     console.log('STARTING INFIX TO POSTFIX CONVERSION');
     for(let elm of infix) {
         // Rule 1: If the incoming symbol is an operand, print it
-        if ((NUMBERS + '.').includes(elm[0])) {
+        if (NUM_REGEX.test(elm)) {
             console.log('IS A NUMBER ');
             postfix.push(elm);
         }
-        else if (OPERATORS.includes(elm)) {
+        else if (OPERATOR_REGEX.test(elm)) {
             const opPrecedence = operatorPrecedence(elm);
             let stackOperatorPrecedence = operatorPrecedence(stack[stack.length - 1]);
             // Rule 2: If the incoming symbol is an operator and the stack is empty or contains a left parenthesis on top, push the incoming operator onto the stack. 
@@ -98,10 +100,10 @@ function result() {
     // STEP 2: evaluate postfix string
     let postfixStack = [];
     for(let i = 0; i < postfix.length; i++) {
-        if((NUMBERS + '.').includes(postfix[i][0])) {
+        if(NUM_REGEX.test(postfix[i])) {
             postfixStack.push(parseFloat(postfix[i]));
         }
-        if (OPERATORS.includes(postfix[i])) {
+        if (OPERATOR_REGEX.test(postfix[i])) {
             let operand2 = postfixStack.pop();
             let operand1 = postfixStack.pop();
             switch(postfix[i]) {
@@ -119,7 +121,7 @@ function onKeyEvent(e) {
     if(e.key in EVENT_TO_CALC_KEY) {
         onCalcKeyEnter(EVENT_TO_CALC_KEY[e.key])
     }
-    else if ((OPERATORS + NUMBERS + '=.').includes(e.key)) {
+    else if (VALID_KEY_REGEX.test(e.key)) {
         onCalcKeyEnter(e.key);
     }
 }
@@ -129,17 +131,18 @@ function onCalcKeyEnter(key) {
     } else if (key === 'RESET') {
         infix = [];
         display.value = '0';
-    } else if (OPERATORS.includes(key)) {
+    } else if (OPERATOR_REGEX.test(key)) {
         // Toggle highlight of that operator key
         for(const keyHighlighted in keysHighlight) {
-            if(keysHighlight[keyHighlighted])
-                infix = infix.slice(0, infix.length - 1);
+            if(keysHighlight[keyHighlighted]) {
+                infix = infix.slice(0, infix.length - 2);
+            }
             keysHighlight[keyHighlighted] = false;
         }
         keysHighlight[key] = true;
         infix.push(display.value);
         infix.push(key);
-    } else if ((NUMBERS + '.').includes(key)) {
+    } else if (NUM_REGEX.test(key)) {
         // If operator is just pressed clear display to make room for the new number
         // and stop highlighting the operator
         for(let operator of OPERATORS) {
