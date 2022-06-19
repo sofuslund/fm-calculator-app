@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 const props = defineProps({
     caption: {type: String, required: true},
     options: {type: Array, required: true},

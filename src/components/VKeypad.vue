@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 const emit = defineEmits(['keyEnter']);
 const props = defineProps(['keysHighlight']);
 

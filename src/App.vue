@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import {ref, computed, onMounted, onBeforeUnmount, reactive} from 'vue';
 
 import VKeypad from './components/VKeypad.vue';
