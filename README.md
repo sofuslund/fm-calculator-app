@@ -40,6 +40,8 @@ Users should be able to:
 
 - [Vue.js](https://vuejs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- CSS Grid
 
 ### What I learned
 
