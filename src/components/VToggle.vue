@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-const props = defineProps({
-    caption: {type: String, required: true},
-    options: {type: Array, required: true},
-    modelValue: Number,
-});
-const emit = defineEmits(['update:modelValue']);
+const props = defineProps<{
+    caption: string,
+    options: number[],
+    modelValue?: Number,
+}>();
+const emit = defineEmits<{(e: 'update:modelValue', value: number): void}>();
 
 function updateValue(idx) {
     emit('update:modelValue', idx);

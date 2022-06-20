@@ -5,7 +5,7 @@ import VKeypad from './components/VKeypad.vue';
 import VDisplay from './components/VDisplay.vue';
 import VToggle from './components/VToggle.vue';
 
-const OPERATORS = ['+', '-', 'x', '/'];
+const OPERATORS = ['+', '-', 'x', '/']
 const VALID_KEY_REGEX = /^[+\-x/\d\.]$/;
 const NUM_REGEX = /^-?[\d\.]+$/;
 const OPERATOR_REGEX = /^[+\-x/]$/;
@@ -23,12 +23,15 @@ const theme = ref(0);
 let keysHighlight = reactive({});
 
 let display = ref('0'); // Number currently shown on screen
-let infix = []; // Whole calculation
+
+type operator = '+' | '-' | 'x' | '/';
+type expression = (operator|number)[];
+let infix: expression = []; // Whole calculation
 
 const displayFormatted = computed(() => {
     // Check if there should be any commas in long numbers
     // (?!\.)
-    return display.value.replaceAll(/(\d+)(\.?\d*)/g, (match, g1, g2, ...args) => {
+    return display.value.replace(/(\d+)(\.?\d*)/g, (match, g1, g2, ...args) => {
         let commaIdx = g1.length % 3 === 0 ? 3 : g1.length % 3
         let s = g1.substring(0, commaIdx);
         for(let i = commaIdx; i <= g1.length - 3; i += 3) {
@@ -56,19 +59,19 @@ function operatorPrecedence(operator) {
     }
     return -1;
 }
-function result() {
+function result(): string {
     // STEP 1: convert infix to postfix
     console.log('THE INFIX STRING: ', infix);
-    let postfix = [];
-    let stack = [];
+    let postfix: expression = [];
+    let stack: expression = [];
     console.log('STARTING INFIX TO POSTFIX CONVERSION');
     for(let elm of infix) {
         // Rule 1: If the incoming symbol is an operand, print it
-        if (NUM_REGEX.test(elm)) {
+        if (NUM_REGEX.test(String(elm))) {
             console.log('IS A NUMBER ');
             postfix.push(elm);
         }
-        else if (OPERATOR_REGEX.test(elm)) {
+        else if (OPERATOR_REGEX.test(String(elm))) {
             const opPrecedence = operatorPrecedence(elm);
             let stackOperatorPrecedence = operatorPrecedence(stack[stack.length - 1]);
             // Rule 2: If the incoming symbol is an operator and the stack is empty or contains a left parenthesis on top, push the incoming operator onto the stack. 
@@ -85,7 +88,7 @@ function result() {
                     postfix.push(stack[stack.length - 1]);
                     stack = stack.slice(0, stack.length - 1);
                     if(stack.length === 0) break;
-                    stackOperatorPrecedence = opPrecedence(stack[stack.length - 1]);
+                    stackOperatorPrecedence = operatorPrecedence(stack[stack.length - 1]);
                 }
                 stack.push(elm);
             }
@@ -99,14 +102,15 @@ function result() {
     console.log('INFIX TO POSTFIX CONVERSION SUCCESFUL, POSTFIX: ', postfix);
     console.log('STARTING POSTFIX EVALUATION');
     // STEP 2: evaluate postfix string
-    let postfixStack = [];
+    let postfixStack: expression = [];
     for(let i = 0; i < postfix.length; i++) {
-        if(NUM_REGEX.test(postfix[i])) {
-            postfixStack.push(parseFloat(postfix[i]));
+        if(NUM_REGEX.test(String(postfix[i]))) {
+            postfixStack.push(parseFloat(String(postfix[i])));
         }
-        if (OPERATOR_REGEX.test(postfix[i])) {
+        if (OPERATOR_REGEX.test(String(postfix[i]))) {
             let operand2 = postfixStack.pop();
             let operand1 = postfixStack.pop();
+            if(!operand1 || !operand2 || typeof operand1 !== 'number' || typeof operand2 !== 'number') return 'Error';
             switch(postfix[i]) {
                 case '+': postfixStack.push(operand1 + operand2); break;
                 case '-': postfixStack.push(operand1 - operand2); break;
@@ -144,7 +148,7 @@ function onCalcKeyEnter(key) {
             keysHighlight[keyHighlighted] = false;
         }
         keysHighlight[key] = true;
-        infix.push(display.value);
+        infix.push(parseFloat(display.value));
         infix.push(key);
     } else if (NUM_REGEX.test(key)) {
         // If operator is just pressed clear display to make room for the new number
@@ -162,7 +166,7 @@ function onCalcKeyEnter(key) {
         display.value += key;
     } else if (key === '=') {
         // Calculate the result and show it
-        infix.push(display.value);
+        infix.push(parseFloat(display.value));
         display.value = result();
         infix = [];
     }

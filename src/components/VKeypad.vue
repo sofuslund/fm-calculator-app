@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-const emit = defineEmits(['keyEnter']);
-const props = defineProps(['keysHighlight']);
+const emit = defineEmits<{(e: 'keyEnter', key: string | number): void}>();
+const props = defineProps<{keysHighlight: object}>();
 
 const primaryStyle = 'text-3xl lg:text-5xl text-key-text bg-key-bg-primary shadow-key-bg-primary-dark shadow-primary';
 const secondaryStyle = "text-key-text-light bg-key-bg-secondary shadow-secondary text-xl lg:text-[2rem]";
@@ -19,12 +19,11 @@ function keyText(key){
 function keyStyle(key) {
     return key.hasOwnProperty('styleClass') ? key.styleClass : primaryStyle;
 }
-
 </script>
 
 <template>
 <div class="w-full bg-background grid grid-cols-4 grid-rows-5 gap-3.5 lg:gap-[1.25rem] p-6 rounded-xl">
-    <button class="rounded-md w-full h-full hover:brightness-[1.3]" @click="$emit('keyEnter', keyText(key))" :class="[keyStyle(key), {'brightness-[1.3]': keysHighlight[key]}]" v-for="key in keys">
+    <button class="rounded-md w-full h-full hover:brightness-[1.3]" @click="$emit('keyEnter', keyText(key))" :class="[keyStyle(key), {'brightness-[1.3]': keysHighlight[keyText(key)]}]" v-for="key in keys">
         <!-- translate to compensate for empty space in font making it difficult to center text -->
         <h1 class="translate-y-[.02em]">{{keyText(key)}}</h1>
     </button>

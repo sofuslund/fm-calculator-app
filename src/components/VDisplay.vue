@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const props = defineProps(['value']);
+const props = defineProps<{value: string}>();
 </script>
 <template>
     <div class="bg-background-dark rounded-xl flex items-center">
